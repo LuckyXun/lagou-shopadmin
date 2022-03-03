@@ -1,13 +1,14 @@
 <!--
  * @Author: XunL
  * @Date: 2022-02-12 00:46:22
- * @LastEditTime: 2022-02-13 01:08:21
+ * @LastEditTime: 2022-03-03 10:47:17
  * @Description: file content
 -->
 <script setup lang="ts">
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import HelloWorld from './components/HelloWorld.vue'
+const a = 1
+console.log(a)
 </script>
 
 <template>
