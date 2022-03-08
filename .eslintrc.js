@@ -1,7 +1,7 @@
 /*
  * @Author: XunL
  * @Date: 2022-02-12 21:00:31
- * @LastEditTime: 2022-02-12 21:42:13
+ * @LastEditTime: 2022-03-08 15:17:42
  * @Description: file content
  */
 module.exports = {
@@ -29,5 +29,6 @@ module.exports = {
     withDefaults: 'readonly'
   },
   rules: {
+    'vue/multi-word-component-names': 'off'
   }
 }
