@@ -1,7 +1,7 @@
 /*
  * @Author: XunL
  * @Date: 2022-02-12 21:00:31
- * @LastEditTime: 2022-03-08 15:17:42
+ * @LastEditTime: 2022-03-10 16:36:38
  * @Description: file content
  */
 module.exports = {
@@ -30,5 +30,13 @@ module.exports = {
   },
   rules: {
     'vue/multi-word-component-names': 'off'
-  }
+  },
+  overrides: [
+    {
+      files: ['src/api/**/*.ts'],
+      rules: {
+        camelcase: 'off'
+      }
+    }
+  ]
 }

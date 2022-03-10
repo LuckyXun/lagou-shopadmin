@@ -1,10 +1,20 @@
 <!--
  * @Author: XunL
  * @Date: 2022-02-12 00:46:22
- * @LastEditTime: 2022-03-08 17:07:26
+ * @LastEditTime: 2022-03-10 16:46:49
  * @Description: file content
 -->
 <script setup lang="ts">
+import { onMounted, ref } from 'vue'
+import { getLoginInfo } from '@/api/common'
+import type { ILoginInfo } from '@/api/types/common'
+
+const slide = ref<ILoginInfo['slide']>([])
+
+onMounted(async () => {
+  const res = await getLoginInfo()
+  slide.value = res.slide
+})
 
 </script>
 
