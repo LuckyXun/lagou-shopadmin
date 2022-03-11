@@ -1,7 +1,7 @@
 <!--
  * @Author: XunL
  * @Date: 2022-02-12 00:46:22
- * @LastEditTime: 2022-03-10 16:46:49
+ * @LastEditTime: 2022-03-11 15:05:18
  * @Description: file content
 -->
 <script setup lang="ts">
@@ -14,6 +14,7 @@ const slide = ref<ILoginInfo['slide']>([])
 onMounted(async () => {
   const res = await getLoginInfo()
   slide.value = res.slide
+  console.log(res)
 })
 
 </script>
