@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "target": "esnext",
-   
     "useDefineForClassFields": true,
     "module": "esnext",
     "moduleResolution": "node",
@@ -21,8 +20,8 @@
         "src/*"
       ]
     },
+    "types": ["vite/client","element-plus/global","@element-plus/icons-vue"]
   },
-  "types": ["vite/client"],
   "include": [
     "src/**/*.ts",
     "src/**/*.d.ts",

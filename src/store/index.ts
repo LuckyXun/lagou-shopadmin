@@ -1,16 +1,28 @@
-/*
- * @Author: XunL
- * @Description:
- */
-import { createStore } from 'vuex'
+import { createStore, Store, useStore as baseUseStore } from 'vuex'
+import { InjectionKey } from 'vue'
+// import { setItem, getItem } from '@/utils/storage'
+
+const state = {
+  isCollapse: false
+
+}
+
+export type State = typeof state
+
+// 定义 injection key
+export const key: InjectionKey<Store<State>> = Symbol('store')
 
 // 创建一个新的 store 实例
-const store = createStore({
-  state: {},
-  getters: {},
-  mutations: {},
-  actions: {},
-  modules: {}
+export const store = createStore<State>({
+  state,
+  mutations: {
+    setIsCollapse (state, payload) {
+      state.isCollapse = payload
+    }
+  }
 })
 
-export default store
+// 定义自己的 `useStore` 组合式函数
+export function useStore () {
+  return baseUseStore(key)
+}
