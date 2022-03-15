@@ -1,7 +1,7 @@
 <template>
   <el-space size="large">
     <ToggleSidebar />
-    <!-- <Breadcrumb /> -->
+    <Breadcrumb />
   </el-space>
   <el-space size="large">
     <!-- <MenuSearch />
@@ -13,7 +13,7 @@
 
 <script lang="ts" setup>
 import ToggleSidebar from './ToggleSidebar.vue'
-// import Breadcrumb from './Breadcrumb.vue'
+import Breadcrumb from './Breadcrumb.vue'
 // import MenuSearch from './MenuSearch.vue'
 // import FullScreen from './FullScreen.vue'
 // import Notification from './Notification.vue'

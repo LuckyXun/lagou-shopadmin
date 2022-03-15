@@ -1,23 +1,20 @@
 <template>
-  <el-breadcrumb separator-class="el-icon-arrow-right">
+  <el-breadcrumb separator="/">
     <el-breadcrumb-item
-      v-for="item in routes"
-      :key="item.path"
+      v-for="route in routes"
+      :key="route.path"
     >
-      {{ item.meta.title }}
+      {{ route.meta.title }}
     </el-breadcrumb-item>
   </el-breadcrumb>
 </template>
 
 <script lang="ts" setup>
-import { computed } from '@vue/runtime-core'
-import { useRouter } from 'vue-router'
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 
-const router = useRouter()
+const routes = computed(() => useRoute().matched.filter(n => n.meta.title))
 
-const routes = computed(() => {
-  return router.currentRoute.value.matched.filter(item => item.meta.title)
-})
 </script>
 
 <style lang="scss" scoped></style>

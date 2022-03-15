@@ -12,7 +12,7 @@
     active-text-color="#2d8cf0"
     router
   >
-    <el-menu-item index="/">
+    <el-menu-item index="/home">
       <app-icon><Menu /></app-icon>
       <template #title>
         首页
