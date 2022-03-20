@@ -13,6 +13,10 @@ import 'nprogress/nprogress.css'
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
+    redirect: '/home'
+  },
+  {
+    path: '/',
     component: AppLayout,
     children: [
       {
