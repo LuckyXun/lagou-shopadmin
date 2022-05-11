@@ -4,6 +4,8 @@
       class="login-form"
       ref="form"
       size="default"
+      :rules="rules"
+      :model="user"
     >
       <div class="login-form__header">
         <img
@@ -37,6 +39,8 @@
           <img
             class="imgcode"
             alt="验证码"
+            @click="loadCaptcha"
+            :src="captchaSrc"
           >
         </div>
       </el-form-item>
@@ -45,6 +49,7 @@
           class="submit-button"
           type="primary"
           native-type="submit"
+          @click="handleSubmit"
         >
           登录
         </el-button>
@@ -54,14 +59,47 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import { User, Lock, Key } from '@element-plus/icons-vue'
+import { IFormRule, IElForm } from '@/types/element-plus'
+import { getCaptcha } from '@/api/login'
 
 const user = reactive({
   account: 'admin',
   pwd: '123456',
   imgCode: ''
 })
+
+const rules = reactive<IFormRule>({
+  account: [
+    { required: true, message: '请输入账号', trigger: 'change' }
+  ],
+  pwd: [
+    { required: true, message: '请输入密码', trigger: 'change' }
+  ],
+  imgcode: [
+    { required: true, message: '请输入验证码', trigger: 'change' }
+  ]
+})
+
+onMounted(() => {
+  loadCaptcha()
+})
+// 验证码相关代码
+const captchaSrc = ref('')
+const loadCaptcha = async () => {
+  const image = await getCaptcha()
+  captchaSrc.value = URL.createObjectURL(image)
+}
+
+// 提交登录
+const form = ref<IElForm|null>(null)
+
+const handleSubmit = async () => {
+  const isValid = await form.value?.validate()
+
+  console.log(isValid)
+}
 
 </script>
 
@@ -74,7 +112,9 @@ const user = reactive({
   align-items: center;
   background-color: #2d3a4b;
 }
-
+img[src='']{
+  display: none;
+}
 .login-form {
   padding: 30px;
   border-radius: 6px;
