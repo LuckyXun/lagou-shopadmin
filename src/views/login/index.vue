@@ -6,6 +6,7 @@
       size="default"
       :rules="rules"
       :model="user"
+      @submit.prevent="handleSubmit"
     >
       <div class="login-form__header">
         <img
@@ -32,7 +33,7 @@
       <el-form-item prop="imgcode">
         <div class="imgcode-wrap">
           <el-input
-            v-model="user.imgCode"
+            v-model="user.imgcode"
             placeholder="请输入验证码"
             :prefix-icon="Key"
           />
@@ -48,8 +49,8 @@
         <el-button
           class="submit-button"
           type="primary"
+          :loading="loading"
           native-type="submit"
-          @click="handleSubmit"
         >
           登录
         </el-button>
@@ -62,12 +63,16 @@
 import { onMounted, reactive, ref } from 'vue'
 import { User, Lock, Key } from '@element-plus/icons-vue'
 import { IFormRule, IElForm } from '@/types/element-plus'
-import { getCaptcha } from '@/api/login'
+import { getCaptcha, login } from '@/api/login'
+import { useRouter, useRoute } from 'vue-router'
+
+const router = useRouter()
+const route = useRoute()
 
 const user = reactive({
   account: 'admin',
   pwd: '123456',
-  imgCode: ''
+  imgcode: ''
 })
 
 const rules = reactive<IFormRule>({
@@ -93,14 +98,26 @@ const loadCaptcha = async () => {
 }
 
 // 提交登录
+const loading = ref(false)
 const form = ref<IElForm|null>(null)
 
 const handleSubmit = async () => {
+  console.log(form.value)
   const isValid = await form.value?.validate()
-
-  console.log(isValid)
+  console.log('isValid:', isValid)
+  if (!isValid) {
+    return false
+  }
+  loading.value = true
+  const loginInfo = await login(user)
+  console.log(loginInfo)
+  loading.value = false
+  let redirect = route.query.redirect
+  if (typeof redirect !== 'string') {
+    redirect = '/'
+  }
+  router.replace(redirect)
 }
-
 </script>
 
 <style lang="scss" scoped>
@@ -155,7 +172,8 @@ img[src='']{
     align-items: center;
     .imgcode {
       height: 37px;
+      margin-left: 10px;
     }
   }
 }
-</style>F
+</style>
