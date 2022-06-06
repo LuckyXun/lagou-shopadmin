@@ -1,15 +1,11 @@
 /*
  * @Author: XunL
  * @Date: 2022-03-20 22:14:00
- * @LastEditTime: 2022-05-12 01:47:43
+ * @LastEditTime: 2022-06-07 02:04:10
  * @Description: file content
  */
 import { ElForm, ElDialog, ElTree } from 'element-plus'
-interface FormItemRule {
-    required: boolean,
-    message: string,
-    trigger: 'change'|'blur'
-}
+import { FormItemRule } from 'element-plus/lib/components/form/src/types'
 
 export type IElForm = InstanceType<typeof ElForm>
 export type IElDialog = InstanceType<typeof ElDialog>
