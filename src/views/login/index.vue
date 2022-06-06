@@ -102,22 +102,24 @@ const loading = ref(false)
 const form = ref<IElForm|null>(null)
 
 const handleSubmit = async () => {
-  console.log(form.value)
-  const isValid = await form.value?.validate()
-  console.log('isValid:', isValid)
-  if (!isValid) {
-    return false
-  }
-  loading.value = true
-  const loginInfo = await login(user)
-  console.log(loginInfo)
-  loading.value = false
-  let redirect = route.query.redirect
-  if (typeof redirect !== 'string') {
-    redirect = '/'
-  }
-  router.replace(redirect)
+  form.value?.validate(async valid => {
+    if (!valid) {
+      return false
+    }
+    loading.value = true
+    const loginInfo = await login(user).finally(() => {
+      loading.value = false
+    })
+    console.log(loginInfo)
+
+    let redirect = route.query.redirect
+    if (typeof redirect !== 'string') {
+      redirect = '/'
+    }
+    router.replace(redirect)
+  })
 }
+
 </script>
 
 <style lang="scss" scoped>
