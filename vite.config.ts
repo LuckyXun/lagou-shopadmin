@@ -1,7 +1,7 @@
 /*
  * @Author: XunL
  * @Date: 2022-02-12 00:46:22
- * @LastEditTime: 2022-03-11 15:03:50
+ * @LastEditTime: 2022-06-07 19:43:52
  * @Description: file content
  */
 import { defineConfig } from 'vite'
@@ -21,7 +21,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: '@import "@/styles/variables.scss";'
+        additionalData: '@import "@/styles/variables.scss" ; @import "@/styles/mixins.scss";'
       }
 
     }

@@ -1,7 +1,7 @@
 /*
  * @Author: XunL
  * @Date: 2022-03-20 21:08:01
- * @LastEditTime: 2022-05-30 16:44:17
+ * @LastEditTime: 2022-06-07 15:24:54
  * @Description: 登录相关api
  */
 
@@ -28,5 +28,12 @@ export const login = (data:{
     method: 'POST',
     url: '/login',
     data
+  })
+}
+
+export const logout = () => {
+  return request({
+    method: 'get',
+    url: '/setting/admin/logout'
   })
 }

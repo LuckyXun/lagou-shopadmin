@@ -65,9 +65,11 @@ import { User, Lock, Key } from '@element-plus/icons-vue'
 import { IFormRule, IElForm } from '@/types/element-plus'
 import { getCaptcha, login } from '@/api/login'
 import { useRouter, useRoute } from 'vue-router'
+import { useStore } from '@/store'
 
 const router = useRouter()
 const route = useRoute()
+const store = useStore()
 
 const user = reactive({
   account: 'admin',
@@ -110,8 +112,7 @@ const handleSubmit = async () => {
     const loginInfo = await login(user).finally(() => {
       loading.value = false
     })
-    console.log(loginInfo)
-
+    store.commit('setUser', loginInfo.user_info)
     let redirect = route.query.redirect
     if (typeof redirect !== 'string') {
       redirect = '/'

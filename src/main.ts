@@ -15,5 +15,4 @@ app.use(ElementPlusPlugin)
 app.use(ImportCustomComponentsPLugin)
 app.use(router)
 app.use(store, key)
-
-createApp(App).use(ElementPlusPlugin).use(ImportCustomComponentsPLugin).use(router).use(store, key).mount('#app')
+app.mount('#app')

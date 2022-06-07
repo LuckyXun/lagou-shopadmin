@@ -2,7 +2,9 @@
   <el-dropdown>
     <span class="el-dropdown-link">
       {{ $store.state.user?.account }}
-      <i class="el-icon-arrow-down el-icon--right" />
+      <app-icon>
+        <ArrowDown />
+      </app-icon>
     </span>
     <template #dropdown>
       <el-dropdown-menu>
@@ -17,7 +19,8 @@
 
 <script lang="ts" setup>
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { logout } from '@/api/common'
+import { ArrowDown } from '@element-plus/icons-vue'
+import { logout } from '@/api/login'
 import { useRouter } from 'vue-router'
 import { useStore } from '@/store'
 
@@ -56,4 +59,8 @@ const handleLogou = () => {
 
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.el-dropdown-link {
+  @include verticalCentername;
+}
+</style>
