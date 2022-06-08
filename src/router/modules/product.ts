@@ -18,7 +18,8 @@ const routes: RouteRecordRaw = {
       name: 'product-attr',
       component: () => import('@/views/product/attr/index.vue'),
       meta: {
-        title: '商品属性'
+        title: '商品属性',
+        requiresAuth: true
       }
     },
     {
@@ -26,7 +27,8 @@ const routes: RouteRecordRaw = {
       name: 'product-classify',
       component: () => import('@/views/product/classify/index.vue'),
       meta: {
-        title: '商品类型'
+        title: '商品类型',
+        requiresAuth: true
       }
     },
     {
@@ -34,7 +36,8 @@ const routes: RouteRecordRaw = {
       name: 'product-list',
       component: () => import('@/views/product/list/index.vue'),
       meta: {
-        title: '商品列表'
+        title: '商品列表',
+        requiresAuth: true
       }
     },
     {
@@ -42,7 +45,8 @@ const routes: RouteRecordRaw = {
       name: 'product-reply',
       component: () => import('@/views/product/reply/index.vue'),
       meta: {
-        title: '商品评论'
+        title: '商品评论',
+        requiresAuth: true
       }
     }
   ]

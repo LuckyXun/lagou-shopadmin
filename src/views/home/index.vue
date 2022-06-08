@@ -1,8 +1,14 @@
-/* eslint-disable vue/multi-word-component-names */
 <template>
   <h1>首页123</h1>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { logout } from '@/api/login'
+
+logout()
+logout()
+logout()
+
+</script>
 
 <style lang="scss" scoped></style>

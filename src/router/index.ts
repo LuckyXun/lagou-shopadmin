@@ -1,3 +1,4 @@
+import { store } from '@/store'
 /*
  * @Author: XunL
  * @Description: Router
@@ -23,7 +24,10 @@ const routes: RouteRecordRaw[] = [
         path: 'home', // 默认子路由
         name: 'home',
         component: () => import('../views/home/index.vue'),
-        meta: { title: '首页' }
+        meta: {
+          title: '首页',
+          requiresAuth: true
+        }
       },
       orderRouter,
       productRouter,
@@ -32,7 +36,12 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: '/login',
-    component: () => import('../views/login/index.vue')
+    name: 'login',
+    component: () => import('../views/login/index.vue'),
+    meta: {
+      title: '登录',
+      requiresAuth: false
+    }
   }
 ]
 
@@ -43,8 +52,18 @@ const router = createRouter({
 
 nprogress.configure({ showSpinner: false })
 
-router.beforeEach(() => {
+router.beforeEach((to, from) => {
   nprogress.start()
+  // 权限判断
+  if (to.meta.requiresAuth && !store.state.user) {
+    const fullPath = to.fullPath
+    return {
+      name: 'login',
+      query: {
+        redirect: fullPath
+      }
+    }
+  }
 })
 router.afterEach(() => {
   nprogress.done()

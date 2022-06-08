@@ -5,7 +5,7 @@ import { setItem, getItem } from '@/utils/storage'
 
 const state = {
   isCollapse: false,
-  user: getItem<IUserInfo>('user')
+  user: getItem<{token:string} & IUserInfo>('user')
 
 }
 

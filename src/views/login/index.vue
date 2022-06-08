@@ -78,15 +78,9 @@ const user = reactive({
 })
 
 const rules = reactive<IFormRule>({
-  account: [
-    { required: true, message: '请输入账号', trigger: 'change' }
-  ],
-  pwd: [
-    { required: true, message: '请输入密码', trigger: 'change' }
-  ],
-  imgcode: [
-    { required: true, message: '请输入验证码', trigger: 'change' }
-  ]
+  account: [{ required: true, message: '请输入账号', trigger: 'change' }],
+  pwd: [{ required: true, message: '请输入密码', trigger: 'change' }],
+  imgcode: [{ required: true, message: '请输入验证码', trigger: 'change' }]
 })
 
 onMounted(() => {
@@ -101,10 +95,10 @@ const loadCaptcha = async () => {
 
 // 提交登录
 const loading = ref(false)
-const form = ref<IElForm|null>(null)
+const form = ref<IElForm | null>(null)
 
 const handleSubmit = async () => {
-  form.value?.validate(async valid => {
+  form.value?.validate(async (valid) => {
     if (!valid) {
       return false
     }
@@ -112,15 +106,17 @@ const handleSubmit = async () => {
     const loginInfo = await login(user).finally(() => {
       loading.value = false
     })
-    store.commit('setUser', loginInfo.user_info)
-    let redirect = route.query.redirect
+    store.commit('setUser', {
+      ...loginInfo.user_info,
+      token: loginInfo.token
+    })
+    let redirect = route.query.redirect || '/'
     if (typeof redirect !== 'string') {
       redirect = '/'
     }
     router.replace(redirect)
   })
 }
-
 </script>
 
 <style lang="scss" scoped>
@@ -129,28 +125,32 @@ const handleSubmit = async () => {
   height: 100vh;
   display: flex;
   justify-content: center;
+
   align-items: center;
   background-color: #2d3a4b;
 }
-img[src='']{
+
+img[src=""] {
   display: none;
 }
+
 .login-form {
   padding: 30px;
   border-radius: 6px;
   background: #fff;
   min-width: 350px;
+
   .login-form__header {
     display: flex;
     justify-content: center;
     align-items: center;
     padding-bottom: 30px;
   }
-.el-input__prefix {
 
+  .el-input__prefix {
     left: 6px;
-    top: 5px;
-}
+    top: 5px
+  }
 
   .el-form-item:last-child {
     margin-bottom: 0;
@@ -170,9 +170,11 @@ img[src='']{
     width: 271px;
     height: 74px;
   }
+
   .imgcode-wrap {
     display: flex;
     align-items: center;
+
     .imgcode {
       height: 37px;
       margin-left: 10px;
