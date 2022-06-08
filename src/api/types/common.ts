@@ -11,6 +11,7 @@ export interface IMenu {
   is_header: number;
   path: string;
   title: string;
+  children:IMenu[]
 }
 
 export interface IUserInfo {

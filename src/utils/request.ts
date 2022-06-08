@@ -55,7 +55,6 @@ request.interceptors.response.use(
       }).finally(() => {
         isRefreshing = false
       })
-      console.log(23333)
       return Promise.reject(response)
     }
 

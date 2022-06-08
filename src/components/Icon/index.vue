@@ -1,28 +1,40 @@
-<!--
- * @Author: XunL
- * @Description: 全局Icon组件
--->
 <template>
-  <ElIcon
-    :size="options.size"
-    :color="options.color"
-  >
-    <slot />
-  </ElIcon>
+  <ion-icon
+    :name="props.name"
+    :class="[
+      'Ionicons',
+      `ion-${props.name}`
+    ]"
+    :style="styles"
+  />
 </template>
 
-<script setup lang="ts">
-interface Props {
-  size?: number,
-  color?:string
-}
-const options = withDefaults(defineProps<Props>(), {
-  size: 20,
-  color: 'black'
+<script lang="ts" setup>
+import { computed } from 'vue'
+
+const props = defineProps({
+  name: {
+    type: String,
+    required: true
+  },
+  color: {
+    type: String,
+    default: '#5c6b77'
+  },
+  size: {
+    type: Number,
+    default: 16
+  }
 })
 
+const styles = computed(() => {
+  return {
+    fontSize: `${props.size}px`,
+    color: props.color
+  }
+})
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 
 </style>

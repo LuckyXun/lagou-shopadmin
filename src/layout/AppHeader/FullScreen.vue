@@ -1,11 +1,11 @@
 <template>
-  <app-icon>
-    <full-screen @click="toggleFullScreen" />
-  </app-icon>
+  <i
+    class="el-icon-full-screen"
+    @click="toggleFullScreen"
+  />
 </template>
 
 <script lang="ts" setup>
-import { FullScreen } from '@element-plus/icons-vue'
 
 const toggleFullScreen = () => {
   if (!document.fullscreenElement) {
