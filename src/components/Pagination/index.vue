@@ -37,12 +37,14 @@ const props = defineProps({
 })
 const emit = defineEmits(['update:page', 'update:limit'])
 
-const handleCurrentChange = (value:number) => {
-  emit('update:page', value)
+const handleCurrentChange = (page:number) => {
+  emit('update:page', page)
   props.loadList()
 }
-const handleSizeChange = (value:number) => {
-  emit('update:limit', value)
+const handleSizeChange = (size:number) => {
+  emit('update:page', 1)
+  emit('update:limit', size)
+  props.loadList()
 }
 
 </script>
