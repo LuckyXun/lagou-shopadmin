@@ -37,6 +37,7 @@ import AppHeader from './AppHeader/index.vue'
 
 .el-aside {
   width: auto;
+  max-width: 200px;
   background-color: #304156;
   color: #333;
 }

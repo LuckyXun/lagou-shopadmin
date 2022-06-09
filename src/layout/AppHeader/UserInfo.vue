@@ -2,9 +2,7 @@
   <el-dropdown>
     <span class="el-dropdown-link">
       {{ $store.state.user?.account }}
-      <app-icon>
-        <ArrowDown />
-      </app-icon>
+      <app-icon name="chevron-down" />
     </span>
     <template #dropdown>
       <el-dropdown-menu>
@@ -19,7 +17,6 @@
 
 <script lang="ts" setup>
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { ArrowDown } from '@element-plus/icons-vue'
 import { logout } from '@/api/login'
 import { useRouter } from 'vue-router'
 import { useStore } from '@/store'

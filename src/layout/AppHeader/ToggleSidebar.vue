@@ -1,16 +1,16 @@
 <template>
-  <app-icon>
-    <Expand
-      @click="handleCollapse"
-      :class="{
-        expand:!$store.state.isCollapse
-      }"
-    />
-  </app-icon>
+  <app-icon
+    @click="handleCollapse"
+    :class="{
+      expand:!$store.state.isCollapse
+    }"
+    class="hydrated icon"
+    name="list"
+    :size="20"
+  />
 </template>
 
 <script lang="ts" setup>
-import { Expand } from '@element-plus/icons-vue'
 import { useStore } from '@/store'
 
 const store = useStore()
@@ -23,6 +23,10 @@ const handleCollapse = () => {
 <style lang="scss" scoped>
 .expand{
   transform: rotate(180deg);
+}
+
+.icon{
+  cursor: pointer;
 }
 
 </style>

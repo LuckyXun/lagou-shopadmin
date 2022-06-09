@@ -10,7 +10,7 @@
     <template #title>
       <app-icon
         v-if="menu.icon"
-        :name="menu.icon"
+        :name="getIcon(menu.icon)"
         color="rgba(255, 255, 255, 0.7)"
       />
       <span>{{ menu.title }}</span>
@@ -29,7 +29,7 @@
   >
     <app-icon
       v-if="menu.icon"
-      :name="menu.icon"
+      :name="getIcon(menu.icon)"
       color="rgba(255, 255, 255, 0.7)"
     />
     <template #title>
@@ -51,6 +51,13 @@ const props = defineProps({
 })
 
 const menu = ref(props.menu)
+
+function getIcon (name:string) {
+  if (name.indexOf('md-') > -1) {
+    return name.split('-')[1]
+  }
+  return name
+}
 
 </script>
 

@@ -1,7 +1,8 @@
 <template>
-  <i
-    class="el-icon-full-screen"
+  <app-icon
     @click="toggleFullScreen"
+    name="expand"
+    :size="20"
   />
 </template>
 

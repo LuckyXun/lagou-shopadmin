@@ -1,10 +1,7 @@
 <template>
   <ion-icon
     :name="props.name"
-    :class="[
-      'Ionicons',
-      `ion-${props.name}`
-    ]"
+
     :style="styles"
   />
 </template>
@@ -30,7 +27,9 @@ const props = defineProps({
 const styles = computed(() => {
   return {
     fontSize: `${props.size}px`,
-    color: props.color
+    color: props.color,
+    width: '20px'
+
   }
 })
 </script>
