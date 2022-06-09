@@ -5,16 +5,16 @@
 import { RouteRecordRaw, RouterView } from 'vue-router'
 
 const routes: RouteRecordRaw = {
-  path: 'permission',
+  path: 'setting',
   name: 'permission',
   component: RouterView,
   children: [
     {
-      path: 'admin',
+      path: 'system_admin/index',
       name: 'permission-admin',
       component: () => import('@/views/permission/admin/index.vue'),
       meta: {
-        title: '商品评论',
+        title: '管理员列表',
         requiresAuth: true
       }
     },
@@ -23,7 +23,7 @@ const routes: RouteRecordRaw = {
       name: 'permission-role',
       component: () => import('@/views/permission/role/index.vue'),
       meta: {
-        title: '商品评论',
+        title: '角色管理',
         requiresAuth: true
       }
     },
@@ -32,7 +32,7 @@ const routes: RouteRecordRaw = {
       name: 'permission-rule',
       component: () => import('@/views/permission/rule/index.vue'),
       meta: {
-        title: '商品评论',
+        title: '权限规则',
         requiresAuth: true
       }
     }
