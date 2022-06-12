@@ -7,6 +7,7 @@ import Icon from '@/components/Icon/index'
 import Card from '@/components/Card'
 import PageContainer from '@/components/PageContainer'
 import Pagination from '@/components/Pagination'
+import DialogForm from '@/components/DialogForm'
 
 export default {
   install (app:App) {
@@ -14,5 +15,6 @@ export default {
     app.use(Card)
     app.use(PageContainer)
     app.use(Pagination)
+    app.use(DialogForm)
   }
 }

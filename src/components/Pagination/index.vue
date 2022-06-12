@@ -16,6 +16,7 @@
 </template>
 
 <script lang="ts" setup>
+import { PropType } from 'vue'
 
 const props = defineProps({
   limit: {
@@ -31,27 +32,31 @@ const props = defineProps({
     default: 1
   },
   loadList: {
-    type: Function,
+    type: Function as PropType<(...args: any[]) => void>,
     required: true
   }
 })
-const emit = defineEmits(['update:page', 'update:limit'])
+  interface EmitType {
+    (e: 'update:page', page: number): void;
+    (e: 'update:limit', size: number): void;
+  }
 
-const handleCurrentChange = (page:number) => {
-  emit('update:page', page)
+const emit = defineEmits<EmitType>()
+
+const handleCurrentChange = (page: number) => {
+  emit('update:page', 3)
   props.loadList()
 }
-const handleSizeChange = (size:number) => {
+const handleSizeChange = (size: number) => {
   emit('update:page', 1)
   emit('update:limit', size)
   props.loadList()
 }
-
 </script>
 
 <style lang="scss" scoped>
-.el-pagination {
-  display: flex;
-  justify-content: flex-end;
-}
+  .el-pagination {
+    display: flex;
+    justify-content: flex-end;
+  }
 </style>

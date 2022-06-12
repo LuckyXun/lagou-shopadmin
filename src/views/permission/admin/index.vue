@@ -136,6 +136,7 @@
         v-model:page="listParams.page"
         v-model:limit="listParams.limit"
         class="pagination"
+        :disabled="listLoading"
         :list-count="listCount"
         :load-list="loadList"
       />
@@ -154,7 +155,7 @@ const listCount = ref(0)
 const list = ref<IAdmin[]>([])
 const listParams = reactive({ // 列表数据查询参数
   page: 1, // 当前页码
-  limit: 2, // 每页大小
+  limit: 10, // 每页大小
   name: '',
   roles: '',
   status: '' as IListParams['status']
