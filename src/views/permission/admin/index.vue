@@ -53,6 +53,15 @@
       class="table"
       :body-style="{ display: 'flex', 'flex-direction': 'column', 'flex': 1 }"
     >
+      <template #header>
+        <el-button
+          type="primary"
+          @click="formVisible = true"
+        >
+          添加管理员
+        </el-button>
+      </template>
+
       <el-table
         :data="list"
         stripe
@@ -116,7 +125,10 @@
           min-width="100"
         >
           <template #default="scope">
-            <el-button type="text">
+            <el-button
+              type="text"
+              @click="handleUpdate()"
+            >
               编辑
             </el-button>
             <el-popconfirm
@@ -142,6 +154,9 @@
       />
     </app-card>
   </page-container>
+  <admin-form
+    v-model="formVisible"
+  />
 </template>
 
 <script setup lang="ts">
@@ -149,6 +164,7 @@ import { onMounted, reactive, ref } from 'vue'
 import type { IAdmin, IListParams } from '@/api/types/admin'
 import { getAdmins, deleteAdmin, updateAdminStatus } from '@/api/admin'
 import { ElMessage } from 'element-plus'
+import AdminForm from './adminForm.vue'
 
 const listLoading = ref(true)
 const listCount = ref(0)
@@ -185,7 +201,6 @@ const handleDelete = async (id: string) => {
   await deleteAdmin(id)
   loadList()
 }
-// const handleUpdate = () => {}
 const handleStatusChange = async (item: IAdmin) => {
   item.statusLoading = true
   await updateAdminStatus(item.id, item.status).finally(() => {
@@ -194,6 +209,11 @@ const handleStatusChange = async (item: IAdmin) => {
   ElMessage.success(`${item.status === 1 ? '启用' : '禁用'}成功`)
 }
 
+// 添加编辑弹窗逻辑
+const formVisible = ref(false)
+const handleUpdate = () => {
+  formVisible.value = true
+}
 </script>
 
 <style scoped lang="scss">

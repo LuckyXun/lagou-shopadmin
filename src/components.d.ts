@@ -7,11 +7,13 @@ import Icon from '@/components/Icon/index.vue'
 import PageContainer from '@/components/PageContainer/index.vue'
 import Card from '@/components/Card/index.vue'
 import Pagination from './components/Pagination/index.vue'
+import Dialog from './components/DialogForm/index.vue'
 
 declare module '@vue/runtime-core' {
     export interface GlobalComponents {
         PageContainer:typeof PageContainer;
         AppPagination:typeof Pagination;
+        AppDialog:typeof Dialog;
         AppCard:typeof Card;
         AppIcon: typeof Icon;
         RouterLink:typeof import('vue-router')['RouterLink']

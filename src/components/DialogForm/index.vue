@@ -4,29 +4,51 @@
 -->
 <template>
   <el-dialog
-    :model-value="dialogVisible"
-    title="Tips"
-    width="30%"
+    :model-value="props.modelValue"
+    :title="props.title"
+    :width="props.width"
     :before-close="handleClose"
+    :close-on-click-modal="false"
+    :close-on-press-escape="false"
   >
-    <span>This is a message</span>
+    <slot />
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="dialogVisible = false">Cancel</el-button>
+        <el-button @click="handleClose()">取消</el-button>
         <el-button
           type="primary"
-          @click="dialogVisible = false"
-        >Confirm</el-button>
+          @click="handleConfirm"
+        >确定</el-button>
       </span>
     </template>
   </el-dialog>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-const dialogVisible = ref(false)
-const handleClose = () => {}
 
+const emit = defineEmits(['submit', 'update:modelValue'])
+const handleClose = () => {
+  emit('update:modelValue', false)
+}
+
+const props = defineProps({
+  modelValue: {
+    type: Boolean,
+    default: false
+  },
+  width: {
+    type: String,
+    default: '50%'
+  },
+  title: {
+    type: String,
+    required: true
+  }
+})
+
+const handleConfirm = () => {
+  emit('submit')
+}
 </script>
 
 <style scoped lang="scss">

@@ -4,6 +4,7 @@
  */
 import request from '@/utils/request'
 import { IAdmin, IListParams } from './types/admin'
+import { IFormData } from './types/form'
 
 export const getAdmins = function (params:IListParams) {
   return request<{
@@ -27,5 +28,18 @@ export const updateAdminStatus = (id: number, status: number) => {
   return request({
     method: 'PUT',
     url: `/setting/set_status/${id}/${status}`
+  })
+}
+
+export const getRoles = () => {
+  return request<IFormData>({
+    method: 'get',
+    url: '/setting/admin/create'
+  }).then(data => {
+    const roles = data.rules.find(n => n.field === 'roles')
+    if (!roles?.options) {
+      return []
+    }
+    return roles.options
   })
 }
