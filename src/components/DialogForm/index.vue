@@ -5,7 +5,6 @@
 <template>
   <el-dialog
     :model-value="props.modelValue"
-    :title="props.title"
     :width="props.width"
     :before-close="handleClose"
     :close-on-click-modal="false"
@@ -16,6 +15,7 @@
       <span class="dialog-footer">
         <el-button @click="handleClose()">取消</el-button>
         <el-button
+          :loading="confirmLoading||formLoading"
           type="primary"
           @click="handleConfirm"
         >确定</el-button>
@@ -25,8 +25,10 @@
 </template>
 
 <script setup lang="ts">
+import { PropType, ref } from 'vue'
 
 const emit = defineEmits(['submit', 'update:modelValue'])
+
 const handleClose = () => {
   emit('update:modelValue', false)
 }
@@ -40,14 +42,22 @@ const props = defineProps({
     type: String,
     default: '50%'
   },
-  title: {
-    type: String,
-    required: true
+  formLoading: {
+    type: Boolean,
+    default: false
+  },
+  confirm: {
+    type: Function as PropType<()=>Promise<void>>,
+    default: () => Promise.resolve()
   }
 })
-
-const handleConfirm = () => {
-  emit('submit')
+const confirmLoading = ref(false)
+const handleConfirm = async () => {
+  confirmLoading.value = true
+  // emit('confirm')
+  await props.confirm().finally(() => {
+    confirmLoading.value = false
+  })
 }
 </script>
 

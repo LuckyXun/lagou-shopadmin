@@ -44,7 +44,7 @@ const props = defineProps({
 const emit = defineEmits<EmitType>()
 
 const handleCurrentChange = (page: number) => {
-  emit('update:page', 3)
+  emit('update:page', page)
   props.loadList()
 }
 const handleSizeChange = (size: number) => {

@@ -127,7 +127,7 @@
           <template #default="scope">
             <el-button
               type="text"
-              @click="handleUpdate()"
+              @click="handleUpdate(scope.row.id)"
             >
               编辑
             </el-button>
@@ -156,6 +156,8 @@
   </page-container>
   <admin-form
     v-model="formVisible"
+    v-model:admin-id="adminId"
+    @success="handleFormSuccess"
   />
 </template>
 
@@ -169,6 +171,7 @@ import AdminForm from './adminForm.vue'
 const listLoading = ref(true)
 const listCount = ref(0)
 const list = ref<IAdmin[]>([])
+const adminId = ref<number | null>(null)
 const listParams = reactive({ // 列表数据查询参数
   page: 1, // 当前页码
   limit: 10, // 每页大小
@@ -211,9 +214,16 @@ const handleStatusChange = async (item: IAdmin) => {
 
 // 添加编辑弹窗逻辑
 const formVisible = ref(false)
-const handleUpdate = () => {
+const handleUpdate = (id:number) => {
+  adminId.value = id
   formVisible.value = true
 }
+
+const handleFormSuccess = () => {
+  formVisible.value = false
+  loadList()
+}
+
 </script>
 
 <style scoped lang="scss">

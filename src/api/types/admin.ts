@@ -24,3 +24,12 @@ export interface IAdmin {
     _last_time: string
     statusLoading?: boolean
   }
+
+export interface IAdminPostData{
+  account:string
+  pwd:string
+  conf_pwd:string
+  roles:number[]
+  status:0|1
+  real_name:string
+}

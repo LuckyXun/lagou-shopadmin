@@ -7,6 +7,8 @@
     :title="props.adminId ? '编辑管理员' : '添加管理员'"
     @closed="handleDialogClosed"
     @open="handleDialogOpen"
+    :confirm="handleSumbit"
+    :form-loading="formLoading"
   >
     <el-form
       ref="form"
@@ -89,10 +91,11 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
-import { IFormRule } from '@/types/element-plus'
+import { ref } from 'vue'
+import { IFormRule, IElForm } from '@/types/element-plus'
 import type { ISelectOptions } from '@/api/types/form'
-import { getRoles } from '@/api/admin'
+import { getRoles, createAdmin, updateAdmin, getAdmin } from '@/api/admin'
+import { ElMessage } from 'element-plus'
 
 const props = defineProps({
   adminId: {
@@ -100,6 +103,7 @@ const props = defineProps({
     default: null
   }
 })
+const form = ref<IElForm | null>(null)
 const formLoading = ref(false)
 const roles = ref<ISelectOptions []>([])
 const formRules: IFormRule = {
@@ -129,16 +133,34 @@ const formData = ref({
   real_name: ''
 })
 
-onMounted(async () => {
-
-})
-// roles.value = await getRoles()
-// console.log(roles)
 const handleDialogOpen = async () => {
-  roles.value = await getRoles()
+  formLoading.value = true
+  Promise.all([loadRoles(), loadAdmin()]).finally(() => {
+    formLoading.value = false
+  })
 }
+
+const loadRoles = async () => {
+  const data = await getRoles()
+  roles.value = data
+}
+const loadAdmin = async () => {
+  if (props.adminId) {
+    formData.value = await getAdmin(props.adminId)
+  }
+}
+
+const emit = defineEmits(['success', 'update:admin-id'])
 const handleDialogClosed = () => {
-  console.log('closed')
+  emit('update:admin-id', null)
+  form.value?.resetFields()
+  form.value?.clearValidate()
+}
+
+const handleSumbit = async () => {
+  props.adminId ? await updateAdmin(props.adminId, formData.value) : await createAdmin(formData.value)
+  ElMessage.success(`${props.adminId ? '编辑' : '新增'}成功`)
+  emit('success')
 }
 
 </script>

@@ -3,7 +3,7 @@
  * @Description: 管理员相关api
  */
 import request from '@/utils/request'
-import { IAdmin, IListParams } from './types/admin'
+import { IAdmin, IListParams, IAdminPostData } from './types/admin'
 import { IFormData } from './types/form'
 
 export const getAdmins = function (params:IListParams) {
@@ -41,5 +41,36 @@ export const getRoles = () => {
       return []
     }
     return roles.options
+  })
+}
+
+export const createAdmin = (data:IAdminPostData) => {
+  return request({
+    method: 'post',
+    url: '/setting/admin',
+    data
+  })
+}
+
+export const updateAdmin = (id:number, data:IAdminPostData) => {
+  return request({
+    method: 'put',
+    url: `/setting/admin/${id}`,
+    data
+  })
+}
+
+export const getAdmin = (id:number) => {
+  return request<IFormData>({
+    method: 'get',
+    url: `/setting/admin/${id}/edit`
+  }).then(res => {
+    const rules = res.rules
+    const result:Record<string, any> = {}
+    rules.forEach(rule => {
+      result[rule.field] = rule.value
+    })
+    result.roles = result.roles.map((n:string) => +n)
+    return result as IAdminPostData
   })
 }
