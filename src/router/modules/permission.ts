@@ -19,8 +19,8 @@ const routes: RouteRecordRaw = {
       }
     },
     {
-      path: 'role',
-      name: 'system_role/index',
+      path: 'system_role/index',
+      name: 'permission-role',
       component: () => import('@/views/permission/role/index.vue'),
       meta: {
         title: '角色管理',

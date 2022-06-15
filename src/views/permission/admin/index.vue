@@ -100,7 +100,11 @@
         <el-table-column
           label="最后一次登录时间"
           prop="last_time"
-        />
+        >
+          <template #default="scope">
+            {{ scope.row.last_time?Dayjs(scope.row.last_time*1000).format('YYYY-MM-DD HH:mm:ss'):'--' }}
+          </template>
+        </el-table-column>
         <el-table-column
           label="最后一次登录IP"
           prop="last_ip"
@@ -165,6 +169,8 @@
 import { onMounted, reactive, ref } from 'vue'
 import type { IAdmin, IListParams } from '@/api/types/admin'
 import { getAdmins, deleteAdmin, updateAdminStatus } from '@/api/admin'
+import Dayjs from 'dayjs'
+
 import { ElMessage } from 'element-plus'
 import AdminForm from './adminForm.vue'
 

@@ -91,7 +91,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, PropType } from 'vue'
 import { IFormRule, IElForm } from '@/types/element-plus'
 import type { ISelectOptions } from '@/api/types/form'
 import { getRoles, createAdmin, updateAdmin, getAdmin } from '@/api/admin'
@@ -99,7 +99,7 @@ import { ElMessage } from 'element-plus'
 
 const props = defineProps({
   adminId: {
-    type: Number,
+    type: Number as PropType<number | null>,
     default: null
   }
 })
