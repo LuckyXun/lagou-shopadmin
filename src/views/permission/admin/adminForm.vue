@@ -94,7 +94,7 @@
 import { ref, PropType } from 'vue'
 import { IFormRule, IElForm } from '@/types/element-plus'
 import type { ISelectOptions } from '@/api/types/form'
-import { getRoles, createAdmin, updateAdmin, getAdmin } from '@/api/admin'
+import { getSelectRoles, createAdmin, updateAdmin, getAdmin } from '@/api/admin'
 import { ElMessage } from 'element-plus'
 
 const props = defineProps({
@@ -141,7 +141,7 @@ const handleDialogOpen = async () => {
 }
 
 const loadRoles = async () => {
-  const data = await getRoles()
+  const data = await getSelectRoles()
   roles.value = data
 }
 const loadAdmin = async () => {

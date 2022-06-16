@@ -9,8 +9,9 @@
     :before-close="handleClose"
     :close-on-click-modal="false"
     :close-on-press-escape="false"
+    custom-class="ccc"
   >
-    <slot />
+    <slot class="t4est" />
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="handleClose()">取消</el-button>
@@ -61,6 +62,6 @@ const handleConfirm = async () => {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped  lang="scss">
 
 </style>

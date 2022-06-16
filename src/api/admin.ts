@@ -31,7 +31,7 @@ export const updateAdminStatus = (id: number, status: number) => {
   })
 }
 
-export const getRoles = () => {
+export const getSelectRoles = () => {
   return request<IFormData>({
     method: 'get',
     url: '/setting/admin/create'

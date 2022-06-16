@@ -29,5 +29,6 @@
 }
  :deep(.page__item){
   width: 100%;
+  overflow: hidden;
 }
 </style>

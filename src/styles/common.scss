@@ -5,3 +5,7 @@
 .el-dropdown-link {
     cursor: pointer;
 }
+
+:global(.el-dialog__body) {
+    background: red;
+}

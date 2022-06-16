@@ -1,13 +1,12 @@
 <!--
  * @Author: XunL
  * @Date: 2022-02-12 00:46:22
- * @LastEditTime: 2022-03-14 18:29:16
+ * @LastEditTime: 2022-06-16 20:28:02
  * @Description: file content
 -->
 <template>
   <el-config-provider
     :locale="locale"
-    id="app"
   >
     <router-view />
   </el-config-provider>
@@ -15,3 +14,10 @@
 <script setup lang="ts">
 import locale from 'element-plus/lib/locale/lang/zh-cn'
 </script>
+<style scoped  lang="scss">
+//TODO 优化为动态值
+ :global(.el-dialog__body) {
+    max-height: calc(85vh - 250px);
+    overflow: auto;
+}
+ </style>

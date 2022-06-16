@@ -127,6 +127,7 @@
       <app-pagination
         v-model:page="listParams.page"
         v-model:limit="listParams.limit"
+        class="pagination"
         :list-count="listCount"
         :load-list="loadList"
         :disabled="listLoading"
@@ -140,31 +141,55 @@
   />
 </template>
 <script lang="ts" setup>
-import { reactive, ref } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
+import { getRoles } from '@/api/role'
+import type { IListParams, IRole } from '@/api/types/role'
+import RoleForm from './roleForm.vue'
 
 const formVisible = ref(false)
-const roleId = ref<number|null>(null)
+const roleId = ref<number | null>(null)
 const listLoading = ref(false)
-
-const listParams = reactive({ // 列表数据查询参数
+const list = ref<IRole[]>([])
+const listParams = reactive({
+  // 列表数据查询参数
   page: 1, // 当前页码
   limit: 10, // 每页大小
   role_name: '',
-  roles: '',
-  status: ''
+  status: '' as IListParams['status']
 })
 const listCount = ref(0)
 const handleQuery = async () => {
   listParams.page = 1
   loadList()
 }
-const loadList = async () => {}
-const handleStatusChange = async (rec:number) => { console.log(rec) }
-const list = ref([])
-const handleUpdate = async (rec:number) => { console.log(rec) }
-const handleDelete = async (rec:number) => { console.log(rec) }
-const handleFormSuccess = async () => {}
+const loadList = async () => {
+  const data = await getRoles(listParams)
+  list.value = data.list
+  listCount.value = data.count
+}
+onMounted(async () => {
+  loadList()
+})
 
+const handleStatusChange = async (rec: number) => {
+  console.log(rec)
+}
+
+const handleUpdate = async (rec: number) => {
+  console.log(rec)
+}
+const handleDelete = async (rec: number) => {
+  console.log(rec)
+}
+const handleFormSuccess = async () => { }
 </script>
 <style lang="scss" scoped>
+:deep(.text-nowrap) {
+ @include lineClamp(2)
+}
+
+.pagination {
+  position: relative;
+  top: 10px;
+}
 </style>

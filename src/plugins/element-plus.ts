@@ -5,7 +5,7 @@ import { App } from 'vue'
 export default {
   install (app:App) {
     app.use(ElementPlus, {
-      size: 'middle'
+      size: 'default'
     })
   }
 }

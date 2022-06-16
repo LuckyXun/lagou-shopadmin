@@ -1,7 +1,6 @@
 <template>
   <ion-icon
     :name="props.name"
-
     :style="styles"
   />
 </template>

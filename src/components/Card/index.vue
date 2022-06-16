@@ -22,6 +22,7 @@
 <style lang="scss" scoped>
 .card{
   box-sizing: border-box;
+  overflow: auto;
   height: 100%;
 }
 .card > :deep(.el-card__header:empty){
