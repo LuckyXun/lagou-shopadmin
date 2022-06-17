@@ -45,10 +45,12 @@
         prop="checked_menus"
       >
         <el-tree
+          :value="formData.checked_menus"
           ref="tree"
           node-key="id"
           :data="permisnsionTree"
           show-checkbox
+          @check="handlePermissionCheck"
           :props="{
             label: 'title'
           }"
@@ -59,17 +61,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref, PropType } from 'vue'
-import { IFormRule, IElForm } from '@/types/element-plus'
-import { createAdmin, updateAdmin, getAdmin } from '@/api/admin'
-import { ElMessage } from 'element-plus'
-import { getPermissionTree } from '@/api/role'
-import type { IPermission } from '@/api/types/role'
+import { ref, nextTick } from 'vue'
+import { IFormRule, IElForm, IElTree } from '@/types/element-plus'
 
+import { ElMessage } from 'element-plus'
+import { getPermissionTree, createRole, getRole } from '@/api/role'
+import type { IPermission } from '@/api/types/role'
+const tree = ref<IElTree | null>(null)
 const props = defineProps({
   roleId: {
-    type: Number as PropType<number | null>,
-    default: null
+    type: Number,
+    default: 0
   }
 })
 const form = ref<IElForm | null>(null)
@@ -89,13 +91,13 @@ const formRules: IFormRule = {
 
 const formData = ref({
   role_name: '',
-  status: 0 as 0 | 1,
+  status: 1 as 0 | 1,
   checked_menus: ''
 })
 const permisnsionTree = ref<IPermission[]>([])
 const handleDialogOpen = async () => {
   formLoading.value = true
-  Promise.all([loadPermissionTree(), loadAdmin()]).finally(() => {
+  Promise.all([loadPermissionTree(), loadRole()]).finally(() => {
     formLoading.value = false
   })
 }
@@ -104,23 +106,42 @@ const loadPermissionTree = async () => {
   const { menus } = await getPermissionTree()
   permisnsionTree.value = menus
 }
-const loadAdmin = async () => {
+const loadRole = async () => {
   if (props.roleId) {
-    formData.value = await getAdmin(props.roleId)
+    formData.value = await getRole(props.roleId)
+    console.log(formData.value)
+    await nextTick()
+    setCheckedMenus(formData.value.checked_menus.split(',').map(n => +n))
   }
 }
+const setCheckedMenus = (menus: number[]) => {
+  menus.forEach(menuId => {
+    const node = tree.value?.getNode(menuId)
+    console.log(menuId)
+    if (node && node.isLeaf) { // 判断节点是否是叶子节点
+      tree.value?.setChecked(menuId, true, false)
+    }
+  })
+}
 
-const emit = defineEmits(['success', 'update:admin-id'])
+const emit = defineEmits(['success', 'update:role-id'])
 const handleDialogClosed = () => {
-  emit('update:admin-id', null)
+  emit('update:role-id', 0)
   form.value?.resetFields()
   form.value?.clearValidate()
 }
+const handlePermissionCheck = (checked:number, data:{checkedKeys:[], halfCheckedKeys:[]}) => {
+  formData.value.checked_menus = [...data.checkedKeys, ...data.halfCheckedKeys].toString()
+}
 
 const handleSumbit = async () => {
-  props.adminId ? await updateAdmin(props.adminId, formData.value) : await createAdmin(formData.value)
-  ElMessage.success(`${props.adminId ? '编辑' : '新增'}成功`)
-  emit('success')
+  form.value?.validate(async valid => {
+    if (valid) {
+      await createRole(props.roleId, formData.value)
+      ElMessage.success(`${props.roleId ? '编辑' : '新增'}成功`)
+      emit('success')
+    }
+  })
 }
 
 </script>

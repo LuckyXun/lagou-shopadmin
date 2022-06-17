@@ -1,7 +1,7 @@
 <!--
  * @Author: XunL
  * @Date: 2022-02-12 00:46:22
- * @LastEditTime: 2022-06-16 20:28:02
+ * @LastEditTime: 2022-06-17 10:42:54
  * @Description: file content
 -->
 <template>
@@ -17,7 +17,7 @@ import locale from 'element-plus/lib/locale/lang/zh-cn'
 <style scoped  lang="scss">
 //TODO 优化为动态值
  :global(.el-dialog__body) {
-    max-height: calc(85vh - 250px);
+    max-height: calc(100vh - var(--el-dialog-margin-top,15vh) - 250px);
     overflow: auto;
 }
  </style>

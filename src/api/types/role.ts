@@ -14,6 +14,7 @@ export interface IRole {
     level:number
     role_name:string
     status: number
+    statusLoading:boolean
 }
 
 export interface IPermission {
@@ -21,4 +22,17 @@ export interface IPermission {
   pid: string;
   title: string;
   children:IPermission[]
+}
+export interface IRolePostData {
+  role_name:string
+  checked_menus:string
+  status: 0|1
+}
+
+export interface EditRole {
+  id: number
+  level: number
+  role_name: string
+  rules: string
+  status: 0 | 1
 }

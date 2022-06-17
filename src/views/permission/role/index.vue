@@ -142,12 +142,13 @@
 </template>
 <script lang="ts" setup>
 import { onMounted, reactive, ref } from 'vue'
-import { getRoles } from '@/api/role'
+import { getRoles, deleteRole, updateRoleStatus } from '@/api/role'
 import type { IListParams, IRole } from '@/api/types/role'
 import RoleForm from './roleForm.vue'
+import { ElMessage } from 'element-plus'
 
 const formVisible = ref(false)
-const roleId = ref<number | null>(null)
+const roleId = ref<number>(0)
 const listLoading = ref(false)
 const list = ref<IRole[]>([])
 const listParams = reactive({
@@ -163,7 +164,13 @@ const handleQuery = async () => {
   loadList()
 }
 const loadList = async () => {
-  const data = await getRoles(listParams)
+  listLoading.value = true
+  const data = await getRoles(listParams).finally(() => {
+    listLoading.value = false
+  })
+  data.list.forEach(item => {
+    item.statusLoading = false
+  })
   list.value = data.list
   listCount.value = data.count
 }
@@ -171,17 +178,26 @@ onMounted(async () => {
   loadList()
 })
 
-const handleStatusChange = async (rec: number) => {
-  console.log(rec)
+const handleStatusChange = async (item: IRole) => {
+  item.statusLoading = true
+  await updateRoleStatus(item.id, item.status).finally(() => {
+    item.statusLoading = false
+  })
+  ElMessage.success(`${item.status === 1 ? '启用' : '禁用'}成功`)
 }
 
-const handleUpdate = async (rec: number) => {
-  console.log(rec)
+const handleUpdate = async (id: number) => {
+  roleId.value = id
+  formVisible.value = true
 }
-const handleDelete = async (rec: number) => {
-  console.log(rec)
+const handleDelete = async (id: number) => {
+  await deleteRole(id)
+  loadList()
 }
-const handleFormSuccess = async () => { }
+const handleFormSuccess = async () => {
+  formVisible.value = false
+  loadList()
+}
 </script>
 <style lang="scss" scoped>
 :deep(.text-nowrap) {
