@@ -46,6 +46,7 @@
       >
         <el-tree
           :value="formData.checked_menus"
+          key="22"
           ref="tree"
           node-key="id"
           :data="permisnsionTree"
@@ -92,32 +93,40 @@ const formRules: IFormRule = {
 const formData = ref({
   role_name: '',
   status: 1 as 0 | 1,
-  checked_menus: ''
+  checked_menus: '369'
 })
 const permisnsionTree = ref<IPermission[]>([])
 const handleDialogOpen = async () => {
   formLoading.value = true
-  Promise.all([loadPermissionTree(), loadRole()]).finally(() => {
-    formLoading.value = false
-  })
+  props.roleId
+    ? loadRole().finally(() => {
+      formLoading.value = false
+    })
+    : loadPermissionTree().finally(() => {
+      formLoading.value = false
+    })
 }
 
 const loadPermissionTree = async () => {
+  console.log(permisnsionTree.value)
+  // if (permisnsionTree.value.length) {
+  //   return
+  // }
   const { menus } = await getPermissionTree()
+
   permisnsionTree.value = menus
 }
 const loadRole = async () => {
-  if (props.roleId) {
-    formData.value = await getRole(props.roleId)
-    console.log(formData.value)
-    await nextTick()
-    setCheckedMenus(formData.value.checked_menus.split(',').map(n => +n))
-  }
+  const { role, menus } = await getRole(props.roleId)
+  formData.value = role
+  permisnsionTree.value = menus
+  await nextTick()
+  setCheckedMenus(formData.value.checked_menus.split(',').map(n => +n))
 }
+
 const setCheckedMenus = (menus: number[]) => {
   menus.forEach(menuId => {
     const node = tree.value?.getNode(menuId)
-    console.log(menuId)
     if (node && node.isLeaf) { // 判断节点是否是叶子节点
       tree.value?.setChecked(menuId, true, false)
     }

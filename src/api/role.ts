@@ -1,5 +1,11 @@
 /*
  * @Author: XunL
+ * @Date: 2022-06-22 01:45:31
+ * @LastEditTime: 2022-06-22 02:27:57
+ * @Description: file content
+ */
+/*
+ * @Author: XunL
  * @Description: 角色相关接口
  */
 import request from '@/utils/request'
@@ -35,16 +41,17 @@ export const createRole = (
 }
 
 export const getRole = (id:number) => {
-  return request<{role:EditRole}>({
+  return request<{role:EditRole, menus: IPermission[]}>({
     method: 'get',
     url: `/setting/role/${id}/edit`
   }).then(res => {
     const role = res.role
+    const menus = res.menus
     const result:Record<string, any> = {}
     result.role_name = role.role_name
     result.status = role.status
     result.checked_menus = role.rules
-    return result as IRolePostData
+    return { role: result as IRolePostData, menus }
   })
 }
 export const deleteRole = (id:number) => {
