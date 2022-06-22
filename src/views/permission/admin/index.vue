@@ -51,7 +51,6 @@
     </app-card>
     <app-card
       class="table"
-      :body-style="{ display: 'flex', 'flex-direction': 'column', 'flex': 1 }"
     >
       <template #header>
         <el-button
@@ -65,7 +64,6 @@
       <el-table
         :data="list"
         stripe
-        style="width: 100%;display: flex; flex:1"
         v-loading="listLoading"
       >
         <el-table-column
@@ -233,13 +231,6 @@ const handleFormSuccess = () => {
 </script>
 
 <style scoped lang="scss">
-.table {
-  display: flex;
-  flex-direction: column;
-}
+@import '@/styles/modules/tablePage.scss';
 
-.pagination {
-  position: relative;
-  top: 10px;
-}
 </style>

@@ -49,7 +49,9 @@
         </el-form-item>
       </el-form>
     </app-card>
-    <app-card>
+    <app-card
+      class="table"
+    >
       <template #header>
         <el-button
           type="primary"
@@ -61,7 +63,6 @@
       <el-table
         :data="list"
         stripe
-        style="width: 100%"
         v-loading="listLoading"
       >
         <el-table-column
@@ -200,12 +201,9 @@ const handleFormSuccess = async () => {
 }
 </script>
 <style lang="scss" scoped>
+@import '@/styles/modules/tablePage.scss';
+
 :deep(.text-nowrap) {
  @include lineClamp(2)
-}
-
-.pagination {
-  position: relative;
-  top: 10px;
 }
 </style>
