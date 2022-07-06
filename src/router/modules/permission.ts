@@ -28,7 +28,7 @@ const routes: RouteRecordRaw = {
       }
     },
     {
-      path: 'rule',
+      path: 'system_menus/index',
       name: 'permission-rule',
       component: () => import('@/views/permission/rule/index.vue'),
       meta: {
