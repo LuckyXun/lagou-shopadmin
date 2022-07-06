@@ -1,11 +1,5 @@
 /*
  * @Author: XunL
- * @Date: 2022-06-22 01:45:31
- * @LastEditTime: 2022-06-22 02:27:57
- * @Description: file content
- */
-/*
- * @Author: XunL
  * @Description: 角色相关接口
  */
 import request from '@/utils/request'

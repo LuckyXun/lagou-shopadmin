@@ -1,13 +1,14 @@
 /*
  * @Author: XunL
  * @Date: 2022-02-12 00:46:22
- * @LastEditTime: 2022-06-16 15:26:51
+ * @LastEditTime: 2022-07-01 10:17:05
  * @Description: file content
  */
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import eslintPlugin from 'vite-plugin-eslint'
 import { join } from 'path'
+import { createStyleImportPlugin, VxeTableResolve } from 'vite-plugin-style-import'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue({
@@ -18,6 +19,10 @@ export default defineConfig({
     }
   }), eslintPlugin({
     cache: false
+  }), createStyleImportPlugin({
+    resolves: [
+      VxeTableResolve()
+    ]
   })],
   resolve: {
     alias: {
