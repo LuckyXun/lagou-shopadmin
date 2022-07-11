@@ -4,16 +4,24 @@
  * @Description: 权限规则相关接口
  */
 import request from '@/utils/request'
-import { IListParams } from './types/rule'
+import { IListParams, IMenu } from './types/rule'
 
 export const getMenus = (params:IListParams) => {
-  return request({
+  return request<IMenu[]>({
     method: 'get',
-    url: '/api/admin/setting/menus',
+    url: '/setting/menus',
     params
   })
 }
 
 export const deleteMenu = (id:Number) => {}
 
-export const updateMenuStatus = () => {}
+export const updateMenuStatus = (id:number, status: number) => {
+  return request({
+    method: 'put',
+    url: `/setting/menus/show/${id}`,
+    params: {
+      is_show: status
+    }
+  })
+}

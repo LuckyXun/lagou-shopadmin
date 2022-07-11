@@ -142,12 +142,12 @@
 
 <script lang="ts" setup>
 import { ref, reactive, onMounted } from 'vue'
-import { getMenus, deleteMenu } from '@/api/rule'
-import type { IRule } from '@/api/types/rule'
+import { getMenus, deleteMenu, updateMenuStatus } from '@/api/rule'
+import type { IMenu } from '@/api/types/rule'
 import { ElMessage } from 'element-plus'
 // import RuleForm from './RuleForm.vue'
 
-const list = ref<IRule[]>([]) // 列表数据
+const list = ref<IMenu[]>([]) // 列表数据
 const listLoading = ref(true)
 const listParams = reactive({ // 列表数据查询参数
   keyword: '',
@@ -182,11 +182,12 @@ const handleDelete = async (id: number) => {
   loadList()
 }
 
-const handleStatusChange = async (item: IRule) => {
+const handleStatusChange = async (item: IMenu) => {
   item.statusLoading = true
-  // await updateMenuStatus(item.id, item.is_show).finally(() => {
-  //   item.statusLoading = false
-  // })
+  console.log(item)
+  await updateMenuStatus(item.id, item.is_show).finally(() => {
+    item.statusLoading = false
+  })
   ElMessage.success(`${item.is_show === 1 ? '启用' : '禁用'}成功`)
 }
 

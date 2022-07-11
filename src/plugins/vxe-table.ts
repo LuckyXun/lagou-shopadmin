@@ -7,6 +7,7 @@
 import { App } from 'vue'
 import XEUtils from 'xe-utils'
 import zhCN from 'vxe-table/es/locale/lang/zh-CN'
+import 'vxe-table/lib/style.css'
 import {
   VXETable,
   Footer,
