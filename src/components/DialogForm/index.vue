@@ -31,6 +31,7 @@ import { PropType, ref } from 'vue'
 const emit = defineEmits(['submit', 'update:modelValue'])
 
 const handleClose = () => {
+  console.log('handleClose')
   emit('update:modelValue', false)
 }
 

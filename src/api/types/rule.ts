@@ -27,8 +27,8 @@ export interface IMenu{
   methods:string;
   module:string;
   params:string;
-  path:string;
-  pid:string;
+  path:number[];
+  pid:number;
   sort:number;
   unique_auth:string;
   statusLoading?:boolean

@@ -132,12 +132,12 @@
       </vxe-table>
     </app-card>
   </page-container>
-  <!-- <rule-form
+  <rule-form
     v-model="formVisible"
     v-model:rule-id="ruleId"
     v-model:pid="pid"
     @success="handleFormSuccess"
-  /> -->
+  />
 </template>
 
 <script lang="ts" setup>
@@ -145,7 +145,7 @@ import { ref, reactive, onMounted } from 'vue'
 import { getMenus, deleteMenu, updateMenuStatus } from '@/api/rule'
 import type { IMenu } from '@/api/types/rule'
 import { ElMessage } from 'element-plus'
-// import RuleForm from './RuleForm.vue'
+import RuleForm from './ruleForm.vue'
 
 const list = ref<IMenu[]>([]) // 列表数据
 const listLoading = ref(true)
@@ -199,6 +199,11 @@ const handleUpdate = (id: number) => {
 const handleCreate = (id: number) => {
   pid.value = id
   formVisible.value = true
+}
+
+const handleFormSuccess = () => {
+  formVisible.value = false
+  loadList()
 }
 
 </script>
