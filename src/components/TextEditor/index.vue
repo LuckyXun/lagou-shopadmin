@@ -49,12 +49,7 @@ const handleChange = function (editor:IDomEditor) {
   emit('update:model-value', editor.getHtml())
 }
 const handleCreated = (editor) => {
-  editorRef.value = editor // 记录 editor 实例，重要！
-  console.log(editor)
-  // editorRef.on  = function (newHtml: string) {
-  //   console.log(newHtml)
-  //   emit('update:model-value', newHtml)
-  // }
+  editorRef.value = editor
 }
 </script>
 

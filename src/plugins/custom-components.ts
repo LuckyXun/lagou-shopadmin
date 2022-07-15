@@ -9,6 +9,7 @@ import PageContainer from '@/components/PageContainer'
 import Pagination from '@/components/Pagination'
 import DialogForm from '@/components/DialogForm'
 import Editor from '@/components/TextEditor'
+import Draggable from '@/components/Draggable'
 export default {
   install (app:App) {
     app.use(Icon)
@@ -17,5 +18,6 @@ export default {
     app.use(Pagination)
     app.use(DialogForm)
     app.use(Editor)
+    app.use(Draggable)
   }
 }
