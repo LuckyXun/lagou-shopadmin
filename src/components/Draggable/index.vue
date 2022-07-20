@@ -1,7 +1,7 @@
 <template>
-  <ul ref="draggableContainer">
+  <div ref="draggableContainer">
     <slot />
-  </ul>
+  </div>
 </template>
 <script setup lang='ts'>
 import Sortable from 'sortablejs'
@@ -20,13 +20,22 @@ const props = defineProps({
 })
 const sortable = ref<Sortable | null>(null)
 onMounted(() => {
-  if (draggableContainer.value) {
-    console.log(draggableContainer.value)
+  setTimeout(() => {
+    if (!draggableContainer.value) {
+      console.error('容器不能为空')
+      return
+    }
     sortable.value = Sortable.create(draggableContainer.value, {
       animation: 300,
-      ...props.options
+      ...props.options,
+      onUpdate (evt) {
+        if (evt.oldIndex !== undefined && evt.newIndex !== undefined) {
+          const item = props.modelValue.splice(evt.oldIndex, 1)[0]
+          props.modelValue.splice(evt.newIndex, 0, item)
+        }
+      }
     })
-  }
+  })
 })
 </script>
 

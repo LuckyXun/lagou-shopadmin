@@ -295,9 +295,6 @@
           prop="activity"
         >
           <el-space>
-            <!--
-              拖拽元素列表和 v-model 的数据必须一致
-             -->
             <app-draggable
               v-model="activities"
               :options="{
@@ -307,6 +304,7 @@
               <el-tag
                 v-for="item in activities"
                 :key="item.name"
+                class="drag_tag"
                 :type="item.type"
                 effect="dark"
               >
@@ -545,5 +543,9 @@ export default {
   .el-space__item {
     max-width: 100%;
   }
+}
+.drag_tag{
+  margin-right: 5px;
+  cursor: pointer;
 }
 </style>
